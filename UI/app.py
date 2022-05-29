@@ -29,14 +29,14 @@ def index():
 
 @app.route("/products")
 def products():
-    if(session['username']):
+    if('username' in session):
         return render_template('product.html')
     else:
         return render_template('login.html')
 
 @app.route("/login", methods=['GET'])
 def login_get():
-    if(session['username']):
+    if('username' in session):
         return render_template('product.html')
     else:
         return render_template('login.html')
@@ -49,7 +49,12 @@ def login_post():
         return render_template('product.html')
     else:
         return render_template('login.html')
-    
+
+@app.route("/logout")
+def logout():
+    session.pop('username')
+    return render_template('login.html')
+
 if __name__ == "__main__":
     app.secret_key = 'BAD_cxvxcvSECRET_KEY'
     app.config['SESSION_TYPE'] = 'filesystem'
