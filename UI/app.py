@@ -22,8 +22,13 @@ class product(db.Model):
     def __repr__(self) -> str:
         return '<product %p>' % self.id 
 
+
 @app.route("/")
 def index():
+    return render_template('home.html')
+
+@app.route("/products")
+def products():
     if(session['username']):
         return render_template('product.html')
     else:
@@ -45,7 +50,6 @@ def login_post():
     else:
         return render_template('login.html')
     
-
 if __name__ == "__main__":
     app.secret_key = 'BAD_cxvxcvSECRET_KEY'
     app.config['SESSION_TYPE'] = 'filesystem'
