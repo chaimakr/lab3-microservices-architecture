@@ -1,0 +1,4 @@
+pymongo[snappy,gssapi,srv,tls]
+flask
+dotenv
+python-dotenv
