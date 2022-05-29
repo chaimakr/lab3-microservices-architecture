@@ -1,4 +1,4 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 
 {% block head %}
 {% endblock %}
@@ -10,23 +10,23 @@
         <table>
             <tr>
                 <td>Product Code</td>
-                <td>{% product["Product_code"] %}</td>
+                <td>{{ product["Product_Code"] }}</td>
             </tr>
             <tr>
                 <td>Warehouse</td>
-                <td>{% product["Warehouse"] %}</td>
+                <td>{{ product["Warehouse"] }}</td>
             </tr>
             <tr>
                 <td>Categroy</td>
-                <td>{% product["Product_Category"] %}</td>
+                <td>{{ product["Product_Category"] }}</td>
             </tr>
             <tr>
-                <td>Date</td>
-                <td>{% product["Date"] %}</td>
+                <td>Latest Date</td>
+                <td>{{ product["Latest_Date"] }}</td>
             </tr>
             <tr>
-                <td>Order Demand</td>
-                <td>{% product["Order_Demand"] %}</td>
+                <td>Total Order Demand</td>
+                <td>{{ product["Order_Demand_Total"] }}</td>
             </tr>
         </table>
     </div>
