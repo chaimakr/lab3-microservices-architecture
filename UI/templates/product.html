@@ -15,18 +15,20 @@
             <th>Order_Demand</th>
             <th>Actions</th>
         </tr>
+        {% for product in products %}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ product["Product_Code"] }}</td>
+            <td>{{ product["Warehouse"] }}</td>
+            <td>{{ product["Product_Category"] }}</td>
+            <td>{{ product["Date"] }}</td>
+            <td>{{ product["Order_Demand"] }}</td>
             <td>
                 <a href="" class="button">delete</a>
                 <br>
                 <a href="" class="button">update</a>
             </td>
         </tr>
+        {% endfor %}
     </table>
 </div>
 {% endblock %}

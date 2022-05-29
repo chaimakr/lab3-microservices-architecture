@@ -1,4 +1,5 @@
 from email.policy import default
+import json
 from flask import Flask, render_template , url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
@@ -26,12 +27,12 @@ sess = Session(app)
 def index():
     return render_template('home.html')
 
-@app.route("/products")
-def products():
-    if('username' in session):
-        return render_template('product.html')
-    else:
-        return render_template('login.html')
+# @app.route("/products")
+# def products():
+#     if('username' in session):
+#         return render_template('product.html')
+#     else:
+#         return render_template('login.html')
 
 @app.route("/login", methods=['GET'])
 def login_get():
@@ -53,6 +54,16 @@ def login_post():
 def logout():
     session.pop('username')
     return render_template('login.html')
+
+@app.route("/products", methods=['GET'])
+def products_get():
+    if('username' in session):
+        res = requests.get('http://localhost:5002/products')
+        data = json.loads(res.text)
+        products = json.loads(data["data"])
+        return render_template('product.html', products=products)
+    else:
+        return render_template('login.html')
 
 if __name__ == "__main__":
     app.secret_key = 'BAD_cxvxcvSECRET_KEY'
