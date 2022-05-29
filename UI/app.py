@@ -1,11 +1,16 @@
 from email.policy import default
-from flask import Flask, render_template , url_for
+from flask import Flask, render_template , url_for, session
 from flask_sqlalchemy import SQLAlchemy
+from flask_session import Session
 import sqlalchemy 
 from datetime import datetime
+from flask import request
+import requests
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///test.db'
 db = SQLAlchemy(app)
+sess = Session(app)
 
 class product(db.Model):
     Product_Code= db.Column(db.String(15), primary_key= True)
@@ -19,7 +24,31 @@ class product(db.Model):
 
 @app.route("/")
 def index():
-    return render_template('product.html')
+    if(session['username']):
+        return render_template('product.html')
+    else:
+        return render_template('login.html')
+
+@app.route("/login", methods=['GET'])
+def login_get():
+    if(session['username']):
+        return render_template('product.html')
+    else:
+        return render_template('login.html')
+
+@app.route("/login",methods=['POST'])
+def login_post():
+    res = requests.post('http://localhost:5000/', json={'username':request.form['username'], 'password':request.form['password']})
+    if(res.status_code==200):
+        session['username'] = request.form['username']
+        return render_template('product.html')
+    else:
+        return render_template('login.html')
+    
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.secret_key = 'BAD_cxvxcvSECRET_KEY'
+    app.config['SESSION_TYPE'] = 'filesystem'
+
+    sess.init_app(app)
+    app.run(debug=True, port=4999)
