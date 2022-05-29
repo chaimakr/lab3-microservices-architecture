@@ -3,6 +3,7 @@ from flask import Flask, render_template , url_for
 from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy 
 from datetime import datetime
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///test.db'
 db = SQLAlchemy(app)
@@ -17,8 +18,13 @@ class product(db.Model):
     def __repr__(self) -> str:
         return '<product %p>' % self.id 
 
+
 @app.route("/")
 def index():
+    return render_template('home.html')
+
+@app.route("/products")
+def products():
     return render_template('product.html')
 
 if __name__ == "__main__":
