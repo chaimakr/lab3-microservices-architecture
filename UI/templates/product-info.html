@@ -1,0 +1,33 @@
+{% extends base.html %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="content">
+        <h1>Product Info</h1>
+        <table>
+            <tr>
+                <td>Product Code</td>
+                <td>{% product["Product_code"] %}</td>
+            </tr>
+            <tr>
+                <td>Warehouse</td>
+                <td>{% product["Warehouse"] %}</td>
+            </tr>
+            <tr>
+                <td>Categroy</td>
+                <td>{% product["Product_Category"] %}</td>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td>{% product["Date"] %}</td>
+            </tr>
+            <tr>
+                <td>Order Demand</td>
+                <td>{% product["Order_Demand"] %}</td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

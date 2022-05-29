@@ -1,10 +1,12 @@
 from flask import Flask
+from flask_cors import CORS
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
 from bson.json_util import dumps
 
 app = Flask(__name__)
+CORS(app)
 
 load_dotenv()
 database_url = os.getenv('MONGO_URL')
@@ -30,4 +32,4 @@ def get_product(product_code):
     response["data"] = data
     return response
 
-app.run(debug=True, port=5000)
+app.run(debug=True, port=5002)
