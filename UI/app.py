@@ -22,7 +22,6 @@ sess = Session(app)
 #     def __repr__(self) -> str:
 #         return '<product %p>' % self.id 
 
-
 @app.route("/")
 def index():
     return render_template('home.html')
