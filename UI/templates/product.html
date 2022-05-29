@@ -17,7 +17,7 @@
         </tr>
         {% for product in products %}
         <tr>
-            <td>{{ product["Product_Code"] }}</td>
+            <td><a href="{{ url_for("products_get_product", product_code=product["Product_Code"]) }}">{{ product["Product_Code"] }}</a></td>
             <td>{{ product["Warehouse"] }}</td>
             <td>{{ product["Product_Category"] }}</td>
             <td>{{ product["Date"] }}</td>
