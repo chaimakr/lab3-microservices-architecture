@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+
 {% block head %}
 {% endblock %}
 
@@ -10,6 +12,7 @@
   <canvas id="lineChart" width="900" height="400"></canvas>
     <script>
         var ctx = document.getElementById("lineChart").getContext("2d");
+        console.log("tyest")
         var lineChart = new Chart(ctx, {
           type: "line",
           data: {

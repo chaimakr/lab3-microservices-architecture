@@ -9,6 +9,7 @@ import sqlalchemy
 from datetime import datetime
 from flask import request
 import requests
+from datetime import date
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///test.db'
@@ -64,6 +65,18 @@ def login_post():
 def logout():
     session.pop('username')
     return render_template('login.html')
+
+@app.route("/forecast/<product_code>")
+def forecast(product_code):
+    #return render_template('forecast.html', data={"hello":"hello"})
+    res = requests.get('http://localhost:5002/products/'+product_code)
+    data = json.loads(json.loads(res.text)['data'])
+    #print(data)
+    labels = [product['Date'] for product in data]
+    values = [product['Order_Demand'] for product in data]
+    labels.append(date.today().strftime("%d/%m/%Y"))
+    values.append(max(values))
+    return render_template('forecast.html', labels=labels, values=values)
 
 @app.route("/products", methods=['GET'])
 def products_get():

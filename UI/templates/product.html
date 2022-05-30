@@ -23,7 +23,7 @@
             <td>{{ product["Date"] }}</td>
             <td>{{ product["Order_Demand"] }}</td>
             <td>
-                <a href="" class="button">Forecast</a>
+                <a href="{{ url_for("forecast", product_code=product["Product_Code"]) }}" class="button">Forecast</a>
             </td>
         </tr>
         {% endfor %}

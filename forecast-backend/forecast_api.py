@@ -10,24 +10,22 @@ CORS(app)
 
 load_dotenv()
 database_url = os.getenv('MONGO_URL')
+client = MongoClient(database_url)
+db = client.get_database("lab3-microservices")
 
 #get products from mongo database
 @app.route('/products', methods=['GET'])
 def list_products():
-    client = MongoClient(database_url)
-    db = client.forecast_db
     response = {}
-    products = db.products.find()
+    products = db.products.find().limit(20)
     data = dumps(products)
     response["data"] = data
     return response
 
 @app.route('/products/<product_code>', methods=['GET'])
 def get_product(product_code):
-    client = MongoClient(database_url)
-    db = client.forecast_db
     response = {}
-    forecasts = db.products.find({'Product_Code': product_code})
+    forecasts = db.products.find({'Product_Code': product_code}).limit(5)
     data = dumps(forecasts)
     response["data"] = data
     return response
